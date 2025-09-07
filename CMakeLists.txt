@@ -8,4 +8,6 @@ add_executable(TALLER_1
         Alumno.cpp
         Alumno.h
         Curso.cpp
-        Curso.h)
+        Curso.h
+        NodoAlumno.cpp
+        NodoAlumno.h)
