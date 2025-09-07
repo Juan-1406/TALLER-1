@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(TALLER_1
         Main.cpp
         Alumno.cpp
-        Alumno.h)
+        Alumno.h
+        Curso.cpp
+        Curso.h)
