@@ -17,8 +17,7 @@ class Alumno {
         string getApellido() const;
         string getCarrera() const;
         string getFechIngreso() const;
-
         void mostrarInfo();
 
-    ~Alumno(){}
+        ~Alumno(){}
 };

@@ -17,5 +17,5 @@ string Alumno::getCarrera() const {return carrera;}
 string Alumno::getFechIngreso() const {return fechaIngreso;}
 
 void Alumno::mostrarInfo() {
-    cout << "ID: " << id << " | " << nombre << " | " << apellido << " | Carrera: " << carrera << " | Fecha Ingreso: " << fechaIngreso << endl;
+    cout << "ID: " << id << " | " << nombre << " " << apellido << " | Carrera: " << carrera << " | Fecha Ingreso: " << fechaIngreso << endl;
 }

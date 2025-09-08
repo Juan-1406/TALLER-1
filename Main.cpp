@@ -1,8 +1,12 @@
 #include <iostream>
+#include "Alumno.h"
+#include "ListAlumnos.h"
 using namespace std;
 
+ListAlumnos lista_alumnos;
+int opcion; int segOpcion; int id;
+
 void manejoAlumnos() {
-    int opcion;
 
     do {
         cout << endl << "--- MANEJO DE ALUMNOS ---" << endl;
@@ -14,37 +18,49 @@ void manejoAlumnos() {
             case 0:
                 cout << endl;
                 break;
+
             case 1: {
-                int id;
                 string nombre; string apellido; string carrera; string fecha;
 
                 cout << "ID:"; cin >> id;
+                if (lista_alumnos.buscarId(id)) {
+                    cout << "Ya existe un alumno/a con ese ID";
+                    continue;
+                }
+
                 cout << "Nombre:"; cin >> nombre;
                 cout << "Apellido:"; cin >> apellido;
                 cout << "Carrera:"; cin >> carrera;
                 cout << "Fecha Ingreso (DD/MM/AA):"; cin >> fecha;
 
                 Alumno* alumno = new Alumno(id, nombre, apellido, carrera, fecha);
+                lista_alumnos.agregarAlumno(alumno);
+                cout << "Alumno/a creado con exito!";
                 break;
             }
+
             case 2: {
-                int segOpcion;
                 cout << "1. Por ID" << endl << "2. Por Nombre" << endl << "Ingrese una opcion:";
                 cin >> segOpcion;
 
                 if (segOpcion == 1) {
-                    int id;
                     cout << "ID:";
                     cin >> id;
+                    Alumno* alumno = lista_alumnos.buscarId(id);
+                    alumno->mostrarInfo();
 
                 } else if (segOpcion == 2) {
                     string nombre;
                     cout << "Nombre:";
-                    cin >> nombre; cout << nombre;
+                    cin >> nombre;
+                    lista_alumnos.mostrarNombres(nombre);
                 }
                 break;
             }
+
             case 3: {
+                cout << "Ingrese ID a eliminar:"; cin >> id;
+                lista_alumnos.eliminarAlumno(id);
                 break;
             }
         }
@@ -52,8 +68,6 @@ void manejoAlumnos() {
 }
 
 void manejoCursos() {
-    int opcion;
-
     do {
         cout << endl << "--- MANEJO DE CURSOS ---" << endl;
         cout << "1. Crear Curso" << endl << "2. Buscar Curso" << endl << "3. Eliminar Curso" << endl << "0. Salir" << endl;
@@ -74,7 +88,7 @@ void manejoCursos() {
                 cout << "Carrera:"; cin >> carrera;
                 cout << "Profesor:"; cin >> profesor;
 
-                Curso* curso = new Curso(codigo, nombre, cantMaxima, carrera, profesor);
+                //Curso* curso = new Curso(codigo, nombre, cantMaxima, carrera, profesor);
                 break;
             }
             case 2: {
@@ -102,6 +116,25 @@ void manejoCursos() {
 }
 
 void manejoInscrip() {
+    int opcion;
+
+    do {
+        cout << "1. Inscribir alumno a un curso" << endl << "2. Eliminar alumno de un curso" << endl << "0. Salir" << endl;
+        cout << "Ingrese una opcion:";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 0:
+                cout << endl;
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+
+    } while (opcion >= 1 && opcion <= 2);
+
 
 }
 

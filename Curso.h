@@ -19,6 +19,5 @@ class Curso {
         string getProfesor() const;
 
         void mostrarInfo();
-
-    ~Curso(){}
+        ~Curso(){}
 };
