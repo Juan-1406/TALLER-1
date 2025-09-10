@@ -22,4 +22,10 @@ add_executable(TALLER_1
         NodoNota.cpp
         NodoNota.h
         ListNotas.cpp
-        ListNotas.h)
+        ListNotas.h
+        Inscripcion.cpp
+        Inscripcion.h
+        NodoInscripcion.cpp
+        NodoInscripcion.h
+        ListInscripciones.cpp
+        ListInscripciones.h)

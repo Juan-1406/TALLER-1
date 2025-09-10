@@ -3,6 +3,7 @@
 ListNotas::ListNotas() {
     cabeza = nullptr;
 }
+
 ListNotas::~ListNotas() {
     NodoNota* actual = cabeza;
     while (actual) {
@@ -19,7 +20,8 @@ void ListNotas::agregarNota(double nota) {
     nodo -> sgt = cabeza;
     cabeza = nodo;
 }
- double ListNotas::promedioNotas() {
+
+double ListNotas::promedioNotas() {
     if (!cabeza) {
         return 0.0;
     }
@@ -53,4 +55,11 @@ void ListNotas::mostrarNotas() {
         actual = actual -> sgt;
     }
     cout << endl;
+}
+
+bool ListNotas::sinNotas() {
+    if (cabeza == nullptr) {
+        return true;
+    }
+    return false;
 }

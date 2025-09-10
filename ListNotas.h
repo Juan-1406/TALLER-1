@@ -9,6 +9,7 @@ class ListNotas {
         void agregarNota(double nota);
         double promedioNotas();
         void mostrarNotas();
+        bool sinNotas();
 
         ~ListNotas();
 };
