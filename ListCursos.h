@@ -13,7 +13,7 @@ public:
     void porNombre(const string& nombre);
     void eliminarCurso(int codigo);
 
-    ~ListCursos(){};
+    ~ListCursos();
 
 };
 

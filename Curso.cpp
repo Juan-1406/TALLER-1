@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Curso::Curso(const string &codigo, const string &nombre, int cantMaxima, const string &carrera, const string &profesor) {
+Curso::Curso(int codigo, const string &nombre, int cantMaxima, const string &carrera, const string &profesor) {
     this -> codigo = codigo;
     this -> nombre = nombre;
     this -> cantMaxima = cantMaxima;
@@ -10,14 +10,14 @@ Curso::Curso(const string &codigo, const string &nombre, int cantMaxima, const s
     this -> profesor = profesor;
 }
 
-string Curso::getCodigo() const {return codigo;}
+int Curso::getCodigo() const {return codigo;}
 string Curso::getNombre() const {return nombre;}
 int Curso::getCantMaxima() const {return cantMaxima;}
 string Curso::getCarrera() const {return carrera;}
 string Curso::getProfesor() const {return profesor;}
 
 void Curso::mostrarInfo() {
-    cout << "Codigo: " << codigo << " | " << nombre << " | Max de Estudiantes: " << cantMaxima << " | Carrera: " << carrera << " | Profesor: " << profesor << endl;
+    cout << endl << "Codigo: " << codigo << " | " << nombre << " | Max de Estudiantes: " << cantMaxima << " | Carrera: " << carrera << " | Profesor: " << profesor;
 }
 
 
