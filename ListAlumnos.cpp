@@ -11,16 +11,6 @@ void ListAlumnos::agregarAlumno(Alumno* a) {
     cabeza = nuevo;
 }
 
-ListAlumnos::~ListAlumnos() {  //SE RECORRE NODO POR NODO BORRANDOLOS
-    NodoAlumno* actual = cabeza;
-    while (actual) {
-        NodoAlumno* temp = actual;
-        actual = actual -> sgt;
-        delete temp -> alumno;
-        delete temp;
-    }
-}
-
 Alumno* ListAlumnos::buscarId(int id) {
     NodoAlumno* actual = cabeza;
     while (actual) {
@@ -42,33 +32,30 @@ void ListAlumnos::mostrarNombres(const string &nombre) {
             encontrado = true;
         }
         actual = actual -> sgt;
+
     }
     if (!encontrado) {
-        cout << endl << "No se encontraron coincidencias para " << nombre;
+        cout << "No se encontraron coincidencias para " << nombre << ".";
     }
 }
 
 void ListAlumnos::eliminarAlumno(int id) {
     NodoAlumno* actual = cabeza;
     NodoAlumno* aux = nullptr;
+    bool encontrado = false;
 
     while (actual) {
         if (actual -> alumno -> getId() == id) {
-            if (aux != nullptr) {
-                aux -> sgt = actual -> sgt;
-            } else {
-                cabeza = actual -> sgt;
-            }
-            delete actual -> alumno;
-            delete actual;
-            cout << endl << "Alumno eliminado con exito!";
-            return;
-        }
-        aux = actual;
-        actual = actual -> sgt;
 
+
+            encontrado = true;
+            cout << "Se elimino correctamente.";
+        }
+        actual = actual -> sgt;
     }
-    cout << endl << "Alumno no encontrado";
+    if (!encontrado) {
+        cout << "No se encontro el ID: " << id << ".";
+    }
 }
 
 void ListAlumnos::mostrarAlumnosCarrera(const string &carrera) {
@@ -84,6 +71,7 @@ void ListAlumnos::mostrarAlumnosCarrera(const string &carrera) {
     }
 
     if (!siHay) {
-        cout << endl << "No hay alumnos inscritos en " << carrera;
+        cout << "No hay alumnos inscritos en " << carrera << ".";
     }
+
 }

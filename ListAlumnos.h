@@ -9,11 +9,11 @@ class ListAlumnos {
     public:
         ListAlumnos();
 
-        void agregarAlumno(Alumno* a);
-        Alumno* buscarId(int id);
-        void mostrarNombres(const string& nombre);
+        void agregarAlumno(Alumno* a); //LISTO
+        Alumno* buscarId(int id); //LISTO
+        void mostrarNombres(const string& nombre); //PARA CUANDO SE BUSCA ALUMNO POR EL NOMBRE //LISTO
         void eliminarAlumno(int id);
         void mostrarAlumnosCarrera(const string& carrera);
 
-        ~ListAlumnos();
+        ~ListAlumnos(){};
 };
