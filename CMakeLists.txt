@@ -16,4 +16,10 @@ add_executable(TALLER_1
         NodoCurso.cpp
         NodoCurso.h
         ListCursos.cpp
-        ListCursos.h)
+        ListCursos.h
+        Nota.cpp
+        Nota.h
+        NodoNota.cpp
+        NodoNota.h
+        ListNotas.cpp
+        ListNotas.h)
