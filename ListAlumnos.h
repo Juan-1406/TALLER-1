@@ -15,5 +15,5 @@ class ListAlumnos {
         void eliminarAlumno(int id);
         void mostrarAlumnosCarrera(const string& carrera);
 
-        ~ListAlumnos(){};
+        ~ListAlumnos();
 };

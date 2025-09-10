@@ -8,15 +8,15 @@ class Alumno {
         string nombre;
         string apellido;
         string carrera;
-        string fechaIngreso;
+        int fechaIngreso;
     public:
-        Alumno(int id, const string& nombre, const string& apellido, const string& carrera, const string& fechaIngreso); //CONSTRUCTOR
+        Alumno(int id, const string& nombre, const string& apellido, const string& carrera, int fechaIngreso); //CONSTRUCTOR
 
         int getId() const;
         string getNombre() const;
         string getApellido() const;
         string getCarrera() const;
-        string getFechIngreso() const;
+        int getFechIngreso() const;
         void mostrarInfo();
 
         ~Alumno(){}

@@ -1,13 +1,16 @@
 #include <iostream>
 #include "Alumno.h"
 #include "ListAlumnos.h"
+#include "ListCursos.h"
 using namespace std;
 
 ListAlumnos lista_alumnos;
+ListCursos lista_cursos;
+
 int opcion; int segOpcion; int id;
 
 void manejoAlumnos() {
-
+    int opcion;
     do {
         cout << endl << "--- MANEJO DE ALUMNOS ---" << endl;
         cout << "1. Crear Alumno" << endl << "2. Buscar Alumno" << endl << "3. Eliminar Alumno" << endl << "0. Salir" << endl;
@@ -20,22 +23,23 @@ void manejoAlumnos() {
                 break;
 
             case 1: {
-                string nombre; string apellido; string carrera; string fecha;
+                int fecha;
+                string nombre; string apellido; string carrera;
 
                 cout << "ID:"; cin >> id;
                 if (lista_alumnos.buscarId(id)) {
-                    cout << "Ya existe un alumno/a con ese ID";
+                    cout << endl << "Ya existe un alumno/a con ese ID" << endl;
                     continue;
                 }
 
                 cout << "Nombre:"; cin >> nombre;
                 cout << "Apellido:"; cin >> apellido;
                 cout << "Carrera:"; cin >> carrera;
-                cout << "Fecha Ingreso (DD/MM/AA):"; cin >> fecha;
+                cout << "Fecha Ingreso (YEAR):"; cin >> fecha;
 
                 Alumno* alumno = new Alumno(id, nombre, apellido, carrera, fecha);
                 lista_alumnos.agregarAlumno(alumno);
-                cout << "Alumno/a creado con exito!";
+                cout  << endl << "Alumno/a creado con exito!" << endl;
                 break;
             }
 
@@ -44,8 +48,13 @@ void manejoAlumnos() {
                 cin >> segOpcion;
 
                 if (segOpcion == 1) {
-                    cout << "ID:";
-                    cin >> id;
+                    cout << "ID:"; cin >> id;
+
+                    if (!lista_alumnos.buscarId(id)) {
+                        cout << endl << "Alumno/a no encontrado" << endl;
+                        continue;
+                    }
+
                     Alumno* alumno = lista_alumnos.buscarId(id);
                     alumno->mostrarInfo();
 
@@ -55,12 +64,15 @@ void manejoAlumnos() {
                     cin >> nombre;
                     lista_alumnos.mostrarNombres(nombre);
                 }
+                cout << endl;
                 break;
             }
 
             case 3: {
                 cout << "Ingrese ID a eliminar:"; cin >> id;
                 lista_alumnos.eliminarAlumno(id);
+
+                cout << endl;
                 break;
             }
         }
