@@ -2,10 +2,14 @@
 #include "Alumno.h"
 #include "ListAlumnos.h"
 #include "ListCursos.h"
+#include "ListNotas.h"
+#include "ListInscripciones.h"
 using namespace std;
 
 ListAlumnos lista_alumnos;
 ListCursos lista_cursos;
+ListNotas lista_notas;
+ListInscripciones lista_inscripciones;
 
 int opcion; int segOpcion; int id; int codigo;
 
@@ -68,11 +72,13 @@ void manejoAlumnos() {
 
             case 3: {
                 cout << "Ingrese ID a eliminar:"; cin >> id;
+                lista_inscripciones.eliminarInscripcionAlumno(id);
                 lista_alumnos.eliminarAlumno(id);
-
                 cout << endl;
                 break;
             }
+            default:
+                cout << endl << "- Opcion invalida -" << endl << endl;
         }
     } while (opcion >= 1 && opcion <= 3);
 }
@@ -133,9 +139,13 @@ void manejoCursos() {
             }
             case 3: {
                 cout << "Ingrese CODIGO a eliminar:"; cin >> codigo;
+                lista_inscripciones.eliminarInscripCurso(codigo);
                 lista_cursos.eliminarCurso(codigo);
+                cout << endl;
                 break;
             }
+            default:
+                cout << endl << "- Opcion invalida -" << endl << endl;
         }
     } while(opcion >= 1 && opcion <= 3);
 }
@@ -152,15 +162,71 @@ void manejoInscrip() {
             case 0:
                 cout << endl;
                 break;
-            case 1:
+            case 1: {
+                cout << "Ingrese ID del alumno:"; cin >> id;
+                cout << "Ingrese CODIGO del curso:"; cin >> codigo;
+
+                Alumno* alumno = lista_alumnos.buscarId(id);
+                Curso* curso = lista_cursos.porCodigo(codigo);
+
+                if (alumno == nullptr) {
+                    cout << endl << "El alumno/a no existe" << endl;
+                    continue;
+                }
+                if (curso == nullptr) {
+                    cout << endl << "El curso no existe" << endl;
+                    continue;
+                }
+
+                if (alumno -> getCarrera() != curso -> getCarrera()) {
+                    cout << endl << "Deben pertenecer a la misma carrera" << endl;
+                    continue;
+                }
+
+                bool  inscrito = lista_inscripciones.agregarInscripcion(alumno, curso);
+                if (inscrito) {
+                    cout << endl << "Inscripcion realizada!";
+                } else {
+                    cout << endl << "No se pudo inscribir (Ya esta inscrito o no hay cupos)";
+                }
+                cout << endl;
                 break;
-            case 2:
+            }
+            case 2: {
+                cout << "Ingrese ID del alumno:"; cin >> id;
+                cout << "Ingrese CODIGO del curso:"; cin >> codigo;
+
+                Alumno* alumno = lista_alumnos.buscarId(id);
+                Curso* curso = lista_cursos.porCodigo(codigo);
+
+                if (alumno == nullptr) {
+                    cout << endl << "El alumno/a no existe" << endl;
+                    continue;
+                }
+                if (curso == nullptr) {
+                    cout << endl << "El curso no existe" << endl;
+                    continue;
+                }
+
+                if (alumno -> getCarrera() != curso -> getCarrera()) {
+                    cout << endl << "Deben pertenecer a la misma carrera" << endl;
+                    continue;
+                }
+
+                bool  inscrito = lista_inscripciones.eliminarInscripcion(id, codigo);
+                if (inscrito) {
+                    cout << endl << "Inscripcion eliminada con exito!";
+                } else {
+                    cout << endl << "Inscripcion no encontrada";
+                }
+                cout << endl;
                 break;
+            }
+            default:
+                cout << endl << "- Opcion invalida -" << endl << endl;
         }
 
     } while (opcion >= 1 && opcion <= 2);
-
-
 }
 
 void manejoNotas() {
@@ -186,9 +252,8 @@ void consultReport() {
                 cout << endl;
                 break;
             }
-
             case 2: {
-
+                
                 break;
             }
             case 3: {
@@ -198,7 +263,8 @@ void consultReport() {
 
                 break;
             }
-
+            default:
+                cout << endl << "- Opcion invalida -" << endl << endl;
         }
     } while(opcion >= 1 && opcion <= 4);
 }
@@ -233,6 +299,8 @@ int main() {
             case 5:
                 consultReport();
                 break;
+            default:
+                cout << endl << "- Opcion invalida -";
         }
     } while (opcion >= 1 && opcion <= 5);
 

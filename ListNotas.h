@@ -1,3 +1,4 @@
+#pragma once
 #include "NodoNota.h"
 
 class ListNotas {

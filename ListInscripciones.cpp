@@ -60,13 +60,11 @@ bool ListInscripciones::eliminarInscripcion(int idAlumno, int codigoCurso) {
             }
             delete actual -> inscripcion;
             delete actual;
-            cout << endl << "Inscripcion eliminada con exito!";
             return true;
         }
         aux = actual;
         actual = actual -> sgt;
     }
-    cout << endl << "Inscripcion no encontrada";
     return false;
 }
 
@@ -95,6 +93,8 @@ void ListInscripciones::eliminarInscripcionAlumno(int idAlumno) {
     }
     if (eliminado) {
         cout << endl << "Registro de cursos eliminados";
+    } else {
+        cout << endl << "Sin registro de cursos para eliminar";
     }
 
 }
@@ -102,6 +102,8 @@ void ListInscripciones::eliminarInscripcionAlumno(int idAlumno) {
 void ListInscripciones::eliminarInscripCurso(int codigoCurso) {
     NodoInscripcion* actual = cabeza;
     NodoInscripcion* aux = nullptr;
+
+    bool eliminado = false;
 
     while (actual) {
         if (actual -> inscripcion -> curso -> getCodigo() == codigoCurso) {
@@ -114,10 +116,17 @@ void ListInscripciones::eliminarInscripCurso(int codigoCurso) {
             actual = actual -> sgt;
             delete temp -> inscripcion;
             delete temp;
+            eliminado = true;
         } else {
             aux = actual;
             actual = actual -> sgt;
         }
+    }
+
+    if (eliminado) {
+        cout << endl << "Inscripciones al curso eliminadas";
+    } else {
+        cout << endl << "El curso no tenia inscripciones";
     }
 }
 
