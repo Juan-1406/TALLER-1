@@ -130,20 +130,6 @@ void ListInscripciones::eliminarInscripCurso(int codigoCurso) {
     }
 }
 
-void ListInscripciones::mostrarInscripciones() {
-    NodoInscripcion* actual = cabeza;
-
-    if (!actual) {
-        cout << endl << "No se encontraron inscripciones";
-        return;
-    }
-    while(actual) {
-        actual -> inscripcion -> mostrarInfo();
-        actual = actual -> sgt;
-    }
-
-}
-
 Inscripcion* ListInscripciones::buscarInscripcion(int idAlumno, int codigoCurso) {
     NodoInscripcion* actual = cabeza;
     while (actual) {
@@ -153,4 +139,39 @@ Inscripcion* ListInscripciones::buscarInscripcion(int idAlumno, int codigoCurso)
         actual = actual -> sgt;
     }
     return nullptr;
+}
+
+void ListInscripciones::cursosAlumno(int idAlumno) {
+    NodoInscripcion* actual = cabeza;
+    bool encontrado = false;
+
+    while (actual) {
+        if (actual ->inscripcion->alumno->getId() == idAlumno) {
+            actual ->inscripcion->mostrarInfo();
+            encontrado = true;
+        }
+        actual = actual -> sgt;
+    }
+
+    if (!encontrado) {
+        cout << endl << "No se encontraron cursos inscritos";
+    }
+
+}
+
+double ListInscripciones::promedioGeneral(int idAlumno) {
+    NodoInscripcion* actual = cabeza;
+    double suma = 0.0; int cont = 0;
+
+    while (actual) {
+        if (actual -> inscripcion -> alumno -> getId() == idAlumno) {
+            if (!actual -> inscripcion -> notaas.sinNotas()) {
+                suma += actual -> inscripcion ->promedio();
+                cont++;
+            }
+        }
+        actual = actual -> sgt;
+    }
+    if (cont == 0) {return 0.0;}
+    return suma / cont;
 }

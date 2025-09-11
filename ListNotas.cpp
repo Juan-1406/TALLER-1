@@ -38,9 +38,7 @@ double ListNotas::promedioNotas() {
     if (cont > 0) {
         return suma / cont;
     }
-
     return 0.0;
-
  }
 
 void ListNotas::mostrarNotas() {

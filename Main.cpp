@@ -1,3 +1,4 @@
+#include <limits>
 #include <iostream>
 #include "Alumno.h"
 #include "ListAlumnos.h"
@@ -231,6 +232,45 @@ void manejoInscrip() {
 
 void manejoNotas() {
 
+    do {
+        cout << endl << "--- MANEJO DE NOTAS ---" << endl;
+        cout << "1. Registrar Nota/s " << endl << "0. Salir" << endl;
+        cout << "Ingrese la opcion:"; cin >> opcion;
+
+        switch (opcion) {
+            case 0:
+                cout << endl;
+                break;
+            case 1: {
+                cout << "Ingrese ID del alumno:"; cin >> id;
+                cout << "Ingrese CODIGO del curso:"; cin >> codigo;
+
+                Inscripcion* inscripcion = lista_inscripciones.buscarInscripcion(id, codigo);
+
+                if (!inscripcion) {
+                    cout << endl << "Inscripcion no encontrada" << endl;
+                    continue;
+                }
+
+                int cant = 0;
+                cout << "Cantidad de notas a ingresar:"; cin >> cant;
+
+                for (int i = 0; i < cant; i++) {
+                    double nota;
+                    cout << "Nota " << (i + 1) << " (1.0 a 7.0):"; cin >> nota;
+
+                    if (nota >= 1.0 && nota <= 7.0){
+                        inscripcion -> notaas.agregarNota(nota);
+                    } else {
+                        cout <<"Nota invalida";
+                    }
+                }
+                break;
+            }
+            default:
+                cout << endl << "- Opcion invalida -" << endl << endl;
+        }
+    }while (opcion == 1);
 }
 
 void consultReport() {
@@ -253,14 +293,27 @@ void consultReport() {
                 break;
             }
             case 2: {
-                
+                cout << "Ingrese ID del alumno:"; cin >> id;
+                lista_inscripciones.cursosAlumno(id);
                 break;
             }
             case 3: {
+                cout << "Ingrese ID del alumno:"; cin >> id;
+                cout << "Ingrese CODIGO del curso:"; cin >> codigo;
 
+                Inscripcion* inscripcion = lista_inscripciones.buscarInscripcion(id, codigo);
+
+                if (!inscripcion) {
+                    cout << endl << "Inscripcion no encontrada" << endl;
+                    continue;
+                }
+                inscripcion -> obtenerPromedio();
+                break;
             }
             case 4: {
-
+                cout << "Ingrese ID del alumno:"; cin >> id;
+                double promedioGeneral = lista_inscripciones.promedioGeneral(id);
+                cout << endl << "El promedio general del alumno es: " << promedioGeneral << endl;
                 break;
             }
             default:

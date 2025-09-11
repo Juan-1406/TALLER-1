@@ -14,7 +14,8 @@ class ListInscripciones {
         void eliminarInscripCurso(int codigoCurso); //SE UTILIZARA CUANDO SE ELIMINE EL CURSO Y HAYA QUE ELIMINAR LAS INSCRIPCIONES DE CADA ALUMNO AL CURSO
 
         Inscripcion* buscarInscripcion(int idAlumno, int codigoCurso);
-        void mostrarInscripciones();
+        void cursosAlumno(int idAlumno);
+        double promedioGeneral(int idAlumno);
 
         ~ListInscripciones();
 };

@@ -13,6 +13,7 @@ class Inscripcion {
         Inscripcion(Alumno* a, Curso* c);
         double promedio();
         void mostrarInfo();
+        void obtenerPromedio();
 
         ~Inscripcion(){}
 };
