@@ -1,3 +1,4 @@
+#pragma once
 #include "Curso.h"
 
 class NodoCurso {

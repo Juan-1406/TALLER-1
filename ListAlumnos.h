@@ -1,3 +1,4 @@
+#pragma once
 #include "NodoAlumno.h"
 #include <string>
 using namespace std;

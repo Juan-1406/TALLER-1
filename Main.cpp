@@ -1,7 +1,6 @@
 #include <iostream>
 #include <limits>
 #include <string>
-#include "Alumno.h"
 #include "ListAlumnos.h"
 #include "ListCursos.h"
 #include "ListNotas.h"
@@ -29,18 +28,18 @@ int verificarNumero(int num, string mensaje1, string mensajeReingres, int valorR
             continue;
         }
 
-        if (valorRef == -1) {
+        if (valorRef == -1) { //PARA IDENTIFICAR CUANDO ES OPCION DE ALGUN MENU
             break;
         }
 
-        if (valorAux != 0) {
-            if (valorAux > num || valorRef < num) {
+        if (valorAux != 0) { //PARA CUANDO SEA CON LA FECHA
+            if (valorAux < num || valorRef > num) {
                 cout << mensaje1 << endl;
                 cout << mensajeReingres; cin >> num;
             }
         }
 
-        if (num < valorRef && valorAux == 0) {
+        if (num < valorRef && valorAux == 0) { //PARA EL ID, CODIGO, CANTIDAD MAXIMA Y DE NOTAS
             cout << mensaje1 << endl;
             cout << mensajeReingres; cin >> num;
         }
@@ -77,7 +76,7 @@ void manejoAlumnos() {
                 cout << "Nombre:"; getline(cin, nombre);
                 cout << "Apellido:"; getline(cin, apellido);
                 cout << "Carrera:"; getline(cin, carrera);
-                cout << "Fecha Ingreso (YEAR):"; cin >> fecha;
+                cout << "Fecha Ingreso (Year):"; cin >> fecha;
                 fecha = verificarNumero(fecha, "La fecha debe ser entre 1900 - 2025", "Reingrese una fecha:", 1900, 2025);
 
                 Alumno* alumno = new Alumno(id, nombre, apellido, carrera, fecha);
@@ -420,7 +419,7 @@ int main() {
     int opcion;
     do {
         //MENU PRINCIPAL
-        cout << "--- MENu PRINCIPAL ---" << endl;
+        cout << "--- MENU PRINCIPAL ---" << endl;
         cout << "1. Manejo de Alumnos" << endl << "2. Manejo de Cursos" << endl << "3. Manejo de Inscripciones" << endl;
         cout << "4. Manejo de Notas" << endl << "5. Consultas y Reportes" << endl << "0. Salir" << endl;
         cout << "Ingrese una opcion:"; cin >> opcion;

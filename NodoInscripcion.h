@@ -1,3 +1,4 @@
+#pragma once
 #include "Inscripcion.h"
 
 class NodoInscripcion {
