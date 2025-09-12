@@ -1,5 +1,6 @@
-#include <limits>
 #include <iostream>
+#include <string>
+#include <limits>
 #include "Alumno.h"
 #include "ListAlumnos.h"
 #include "ListCursos.h"
@@ -13,6 +14,18 @@ ListNotas lista_notas;
 ListInscripciones lista_inscripciones;
 
 int opcion; int segOpcion; int id; int codigo;
+
+void limpiar() { //NECESARIO PARA QUE PUEDA FUNCIONAR CORRECTAMENTE EL GETLINE
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+int verificarNum(int num) { //PARA VERIFICAR QUE TANTO EL ID COMO CODIGO SEA MAYOR A 0
+    cout << "El ID debe mayor a 0" << endl;
+    while (num < 1) {
+        cout << "Reingrese un ID:"; cin >> num;
+    }
+    return num;
+}
 
 void manejoAlumnos() {
     do {
@@ -31,14 +44,17 @@ void manejoAlumnos() {
                 string nombre; string apellido; string carrera;
 
                 cout << "ID:"; cin >> id;
+                id = verificarNum(id);
+
                 if (lista_alumnos.buscarId(id)) {
                     cout << endl << "Ya existe un alumno/a con ese ID" << endl;
                     continue;
                 }
+                limpiar();
 
-                cout << "Nombre:"; cin >> nombre;
-                cout << "Apellido:"; cin >> apellido;
-                cout << "Carrera:"; cin >> carrera;
+                cout << "Nombre:"; getline(cin, nombre);
+                cout << "Apellido:"; getline(cin, apellido);
+                cout << "Carrera:"; getline(cin, carrera);
                 cout << "Fecha Ingreso (YEAR):"; cin >> fecha;
 
                 Alumno* alumno = new Alumno(id, nombre, apellido, carrera, fecha);
@@ -53,6 +69,7 @@ void manejoAlumnos() {
 
                 if (segOpcion == 1) {
                     cout << "ID:"; cin >> id;
+                    id = verificarNum(id);
 
                     if (!lista_alumnos.buscarId(id)) {
                         cout << endl << "Alumno/a no encontrado" << endl;
@@ -64,7 +81,8 @@ void manejoAlumnos() {
 
                 } else if (segOpcion == 2) {
                     string nombre;
-                    cout << "Nombre:"; cin >> nombre;
+                    limpiar();
+                    cout << "Nombre:"; getline(cin, nombre);
                     lista_alumnos.mostrarNombres(nombre);
                 }
                 cout << endl;
@@ -73,6 +91,8 @@ void manejoAlumnos() {
 
             case 3: {
                 cout << "Ingrese ID a eliminar:"; cin >> id;
+                id = verificarNum(id);
+
                 lista_inscripciones.eliminarInscripcionAlumno(id);
                 lista_alumnos.eliminarAlumno(id);
                 cout << endl;
@@ -104,11 +124,13 @@ void manejoCursos() {
                     cout << endl << "Ya existe un curso con ese codigo" << endl;
                     continue;
                 }
+                limpiar();
 
-                cout << "Nombre:"; cin >> nombre;
+                cout << "Nombre:"; getline(cin, nombre);
                 cout << "Cantidad Maxima:"; cin >> cantMaxima;
-                cout << "Carrera:"; cin >> carrera;
-                cout << "Profesor:"; cin >> profesor;
+                limpiar();
+                cout << "Carrera:"; getline(cin, carrera);
+                cout << "Profesor:"; getline(cin, profesor);
 
                 Curso* curso = new Curso(codigo, nombre, cantMaxima, carrera, profesor);
                 lista_cursos.agregarCurso(curso);
@@ -132,7 +154,8 @@ void manejoCursos() {
 
                 } else if(segOpcion == 2) {
                     string nombre;
-                    cout << "Nombre:"; cin >> nombre;
+                    limpiar();
+                    cout << "Nombre:"; getline(cin, nombre);
                     lista_cursos.porNombre(nombre);
                 }
                 cout << endl;
@@ -287,7 +310,8 @@ void consultReport() {
                 break;
             case 1: {
                 string carrera;
-                cout << "Ingrese la carrera:"; cin >> carrera;
+                limpiar();
+                cout << "Ingrese la carrera:"; getline(cin, carrera);
                 lista_alumnos.mostrarAlumnosCarrera(carrera);
                 cout << endl;
                 break;
