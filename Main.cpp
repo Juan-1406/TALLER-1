@@ -19,122 +19,34 @@ void limpiar() { //NECESARIO PARA QUE PUEDA FUNCIONAR CORRECTAMENTE EL GETLINE
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-int verificarNum(int num, int op) { //PARA VERIFICAR QUE TANTO EL ID COMO CODIGO SEA MAYOR A 0
+int verificarNumero(int num, string mensaje1, string mensajeReingres, int valorRef, int valorAux) {
+    while (true) {
+        if (cin.fail()) {
+            cin.clear();
+            limpiar();
+            cout << "Se debe ingresar un numero" << endl;
+            cout << mensajeReingres; cin >> num;
+            continue;
+        }
 
-    if (op == 0) { //PARA CUANDO TIENE QUE VER CON LA OPCION ELEGIDA
-        while (true) {
-            if (cin.fail()) {
-                cin.clear();
-                limpiar();
-                cout << "Se debe ingresar un numero" << endl;
-                cout << "Reingrese una opcion:"; cin >> num;
-                continue;
-            }
+        if (valorRef == -1) {
             break;
         }
-        return num;
 
-    }
-
-    if (op == 1) { //PARA CUANDO TIENE QUE VER CON EL ID
-        while (true) {
-            if (cin.fail()) {
-                cin.clear();
-                limpiar();
-                cout << "Se debe ingresar un numero" << endl;
-                cout << "Reingrese un ID:"; cin >> num;
-                continue;
+        if (valorAux != 0) {
+            if (valorAux > num || valorRef < num) {
+                cout << mensaje1 << endl;
+                cout << mensajeReingres; cin >> num;
             }
-
-            if (num < 1) {
-                cout << "El ID debe ser mayor a 0" << endl;
-                cout << "Reingrese un ID:"; cin >> num;
-                continue;
-            }
-            break;
         }
-        return num;
-    }
 
-    if (op == 2) { //PARA CUANDO TIENE QUE VER CON EL CODIGO
-        while (true) {
-            if (cin.fail()) {
-                cin.clear();
-                limpiar();
-                cout << "Se debe ingresar un numero" << endl;
-                cout << "Reingrese un Codigo:"; cin >> num;
-                continue;
-            }
-
-            if (num < 1) {
-                cout << "El codigo debe ser mayor a 0" << endl;
-                cout << "Reingrese un Codigo:"; cin >> num;
-                continue;
-            }
-            break;
+        if (num < valorRef && valorAux == 0) {
+            cout << mensaje1 << endl;
+            cout << mensajeReingres; cin >> num;
         }
-        return num;
+        break;
     }
-
-    if (op == 3) { //PARA CUANDO TIENE QUE VER CON LA FECHa
-        while (true) {
-            if (cin.fail()) {
-                cin.clear();
-                limpiar();
-                cout << "Se debe ingresar un numero" << endl;
-                cout << "Reingrese una Fecha (YEAR):"; cin >> num;
-                continue;
-            }
-
-            if (num < 1) {
-                cout << "La fecha debe ser mayor a 0" << endl;
-                cout << "Reingrese una Fecha (YEAR):"; cin >> num;
-                continue;
-            }
-            break;
-        }
-        return num;
-    }
-
-    if (op == 4) { //PARA CUANDO TIENE QUE VER CON LA CAPACIDA DMAXIMA
-        while (true) {
-            if (cin.fail()) {
-                cin.clear();
-                limpiar();
-                cout << "Se debe ingresar un numero" << endl;
-                cout << "Reingrese una cantidad maxima:"; cin >> num;
-                continue;
-            }
-
-            if (num < 1) {
-                cout << "La cantidad debe ser mayor a 0" << endl;
-                cout << "Reingrese una cantidad maxima:"; cin >> num;
-                continue;
-            }
-            break;
-        }
-        return num;
-    }
-
-    if (op == 5) { //PARA CUANDO TIENE QUE VER CON LA CANTIDAD DE NOTAS
-        while (true) {
-            if (cin.fail()) {
-                cin.clear();
-                limpiar();
-                cout << "Se debe ingresar un numero" << endl;
-                cout << "Reingrese una cantidad de notas:"; cin >> num;
-                continue;
-            }
-
-            if (num < 1) {
-                cout << "La cantidad debe ser mayor o igual a 1" << endl;
-                cout << "Reingrese una cantidad de notas:"; cin >> num;
-                continue;
-            }
-            break;
-        }
-        return num;
-    }
+    return num;
 }
 
 void manejoAlumnos() {
@@ -142,7 +54,7 @@ void manejoAlumnos() {
         cout << endl << "--- MANEJO DE ALUMNOS ---" << endl;
         cout << "1. Crear Alumno" << endl << "2. Buscar Alumno" << endl << "3. Eliminar Alumno" << endl << "0. Salir" << endl;
         cout << "Ingrese una opcion:"; cin >> opcion;
-        opcion = verificarNum(opcion, 0);
+        opcion = verificarNumero(opcion, "", "Reingrese una opcion:", -1, 0);
 
         switch(opcion) {
             case 0:
@@ -154,7 +66,7 @@ void manejoAlumnos() {
                 string nombre; string apellido; string carrera;
 
                 cout << "ID:"; cin >> id;
-                id = verificarNum(id,1);
+                id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
 
                 if (lista_alumnos.buscarId(id)) {
                     cout << endl << "Ya existe un alumno/a con ese ID" << endl;
@@ -166,7 +78,7 @@ void manejoAlumnos() {
                 cout << "Apellido:"; getline(cin, apellido);
                 cout << "Carrera:"; getline(cin, carrera);
                 cout << "Fecha Ingreso (YEAR):"; cin >> fecha;
-                fecha = verificarNum(fecha,3);
+                fecha = verificarNumero(fecha, "La fecha debe ser entre 1900 - 2025", "Reingrese una fecha:", 1900, 2025);
 
                 Alumno* alumno = new Alumno(id, nombre, apellido, carrera, fecha);
                 lista_alumnos.agregarAlumno(alumno);
@@ -177,10 +89,11 @@ void manejoAlumnos() {
             case 2: {
                 cout << "1. Por ID" << endl << "2. Por Nombre" << endl << "Ingrese una opcion:";
                 cin >> segOpcion;
+                segOpcion = verificarNumero(segOpcion, "", "Reingrese una opcion:", -1, 0);
 
                 if (segOpcion == 1) {
                     cout << "ID:"; cin >> id;
-                    id = verificarNum(id,1);
+                    id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
 
                     if (!lista_alumnos.buscarId(id)) {
                         cout << endl << "Alumno/a no encontrado" << endl;
@@ -189,20 +102,24 @@ void manejoAlumnos() {
 
                     Alumno* alumno = lista_alumnos.buscarId(id);
                     alumno->mostrarInfo();
+                    cout << endl;
 
                 } else if (segOpcion == 2) {
                     string nombre;
                     limpiar();
                     cout << "Nombre:"; getline(cin, nombre);
                     lista_alumnos.mostrarNombres(nombre);
+                    cout << endl;
+
+                } else {
+                    cout << endl << "- Opcion invalida -" << endl;
                 }
-                cout << endl;
                 break;
             }
 
             case 3: {
                 cout << "Ingrese ID a eliminar:"; cin >> id;
-                id = verificarNum(id,1);
+                id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
 
                 lista_inscripciones.eliminarInscripcionAlumno(id);
                 lista_alumnos.eliminarAlumno(id);
@@ -221,7 +138,7 @@ void manejoCursos() {
         cout << endl << "--- MANEJO DE CURSOS ---" << endl;
         cout << "1. Crear Curso" << endl << "2. Buscar Curso" << endl << "3. Eliminar Curso" << endl << "0. Salir" << endl;
         cout << "Ingrese una opcion:"; cin >> opcion;
-        opcion = verificarNum(opcion, 0);
+        opcion = verificarNumero(opcion, "", "Reingrese una opcion:", -1, 0);
 
         switch(opcion) {
             case 0:
@@ -233,7 +150,7 @@ void manejoCursos() {
                 string nombre; string carrera; string profesor;
 
                 cout << "Codigo:"; cin >> codigo;
-                codigo = verificarNum(codigo,2);
+                codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese un codigo:", 1, 0);
 
                 if (lista_cursos.porCodigo(codigo)) {
                     cout << endl << "Ya existe un curso con ese codigo" << endl;
@@ -243,7 +160,7 @@ void manejoCursos() {
 
                 cout << "Nombre:"; getline(cin, nombre);
                 cout << "Cantidad Maxima:"; cin >> cantMaxima;
-                cantMaxima = verificarNum(cantMaxima, 4);
+                cantMaxima = verificarNumero(cantMaxima, "La cantidad debe ser mayor a 0", "Reingrese una cantidad maxima:", 1, 0);
                 limpiar();
                 cout << "Carrera:"; getline(cin, carrera);
                 cout << "Profesor:"; getline(cin, profesor);
@@ -257,10 +174,11 @@ void manejoCursos() {
             case 2: {
                 cout << "1. Por Codigo" << endl << "2. Por Nombre" << endl << "Ingrese una opcion:";
                 cin >> segOpcion;
+                segOpcion = verificarNumero(segOpcion, "", "Reingrese una opcion:", -1, 0);
 
                 if (segOpcion == 1) {
                     cout << "Codigo:"; cin >> codigo;
-                    codigo = verificarNum(codigo,2);
+                    codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese un codigo:", 1, 0);
                     if (!lista_cursos.porCodigo(codigo)) {
                         cout << endl << "Curso no encontrado" << endl;
                         continue;
@@ -268,20 +186,24 @@ void manejoCursos() {
 
                     Curso* curso = lista_cursos.porCodigo(codigo);
                     curso -> mostrarInfo();
+                    cout << endl;
 
                 } else if(segOpcion == 2) {
                     string nombre;
                     limpiar();
                     cout << "Nombre:"; getline(cin, nombre);
                     lista_cursos.porNombre(nombre);
+                    cout << endl;
+
+                } else {
+                    cout << endl << "- Opcion invalida -" << endl;
                 }
-                cout << endl;
                 break;
             }
 
             case 3: {
                 cout << "Ingrese CODIGO a eliminar:"; cin >> codigo;
-                codigo = verificarNum(codigo,2);
+                codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese un codigo:", 1, 0);
                 lista_inscripciones.eliminarInscripCurso(codigo);
                 lista_cursos.eliminarCurso(codigo);
                 cout << endl;
@@ -299,7 +221,7 @@ void manejoInscrip() {
         cout << endl << "--- MANEJO DE INSCRIPCIONES ---" << endl;
         cout << "1. Inscribir alumno a un curso" << endl << "2. Eliminar alumno de un curso" << endl << "0. Salir" << endl;
         cout << "Ingrese una opcion:"; cin >> opcion;
-        opcion = verificarNum(opcion, 0);
+        opcion = verificarNumero(opcion, "", "Reingrese una opcion:", -1, 0);
 
         switch (opcion) {
             case 0:
@@ -308,9 +230,9 @@ void manejoInscrip() {
 
             case 1: {
                 cout << "Ingrese ID del alumno:"; cin >> id;
-                id = verificarNum(id,1);
+                id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
                 cout << "Ingrese CODIGO del curso:"; cin >> codigo;
-                codigo = verificarNum(codigo,2);
+                codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese un codigo:", 1, 0);
 
                 Alumno* alumno = lista_alumnos.buscarId(id);
                 Curso* curso = lista_cursos.porCodigo(codigo);
@@ -341,9 +263,9 @@ void manejoInscrip() {
 
             case 2: {
                 cout << "Ingrese ID del alumno:"; cin >> id;
-                id = verificarNum(id,1);
+                id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
                 cout << "Ingrese CODIGO del curso:"; cin >> codigo;
-                codigo = verificarNum(codigo,2);
+                codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese un codigo:", 1, 0);
 
                 Alumno* alumno = lista_alumnos.buscarId(id);
                 Curso* curso = lista_cursos.porCodigo(codigo);
@@ -384,7 +306,7 @@ void manejoNotas() {
         cout << endl << "--- MANEJO DE NOTAS ---" << endl;
         cout << "1. Registrar Nota/s " << endl << "0. Salir" << endl;
         cout << "Ingrese la opcion:"; cin >> opcion;
-        opcion = verificarNum(opcion, 0);
+        opcion = verificarNumero(opcion, "", "Reingrese una opcion:", -1, 0);
 
         switch (opcion) {
             case 0:
@@ -393,9 +315,9 @@ void manejoNotas() {
 
             case 1: {
                 cout << "Ingrese ID del alumno:"; cin >> id;
-                id = verificarNum(id,1);
+                id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
                 cout << "Ingrese CODIGO del curso:"; cin >> codigo;
-                codigo = verificarNum(codigo,2);
+                codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese una cantidad de notas:", 1, 0);
 
                 Inscripcion* inscripcion = lista_inscripciones.buscarInscripcion(id, codigo);
 
@@ -406,7 +328,7 @@ void manejoNotas() {
 
                 int cant = 0;
                 cout << "Cantidad de notas a ingresar:"; cin >> cant;
-                cant = verificarNum(cant,5);
+                cant = verificarNumero(cant, "La cantidad debe ser mayor o igual a 1", "Reingrese un codigo:", 1, 0);
 
                 for (int i = 0; i < cant; i++) {
                     double nota;
@@ -421,13 +343,11 @@ void manejoNotas() {
                             continue;
                         }
                         break;
-                    }if (nota >= 1.0 && nota <= 7.0){
+                    } if (nota >= 1.0 && nota <= 7.0){
                         inscripcion -> notaas.agregarNota(nota);
                     } else {
-                        cout << "Nota invalida";
+                        cout << "Nota invalida" << endl;
                     }
-
-
                 }
                 break;
             }
@@ -444,7 +364,7 @@ void consultReport() {
         cout << "1. Alumnos de una carrera " << endl << "2. Todos los cursos de un alumno" << endl << "3. Promedio de un alumno (1 curso)";
         cout << endl << "4. Promedio general de un alumno" << endl << "0. Salir" << endl;
         cout << "Ingrese una opcion:"; cin >> opcion;
-        opcion = verificarNum(opcion, 0);
+        opcion = verificarNumero(opcion, "", "Reingrese una opcion:", -1, 0);
 
         switch(opcion) {
             case 0:
@@ -462,16 +382,16 @@ void consultReport() {
 
             case 2: {
                 cout << "Ingrese ID del alumno:"; cin >> id;
-                id = verificarNum(id,1);
+                id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
                 lista_inscripciones.cursosAlumno(id);
                 break;
             }
 
             case 3: {
                 cout << "Ingrese ID del alumno:"; cin >> id;
-                id = verificarNum(id,1);
+                id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
                 cout << "Ingrese CODIGO del curso:"; cin >> codigo;
-                codigo = verificarNum(codigo,2);
+                codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese un codigo:", 1, 0);
 
                 Inscripcion* inscripcion = lista_inscripciones.buscarInscripcion(id, codigo);
 
@@ -485,7 +405,7 @@ void consultReport() {
 
             case 4: {
                 cout << "Ingrese ID del alumno:"; cin >> id;
-                id = verificarNum(id,1);
+                id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
                 double promedioGeneral = lista_inscripciones.promedioGeneral(id);
                 cout << endl << "El promedio general del alumno es: " << promedioGeneral << endl;
                 break;
@@ -504,7 +424,7 @@ int main() {
         cout << "1. Manejo de Alumnos" << endl << "2. Manejo de Cursos" << endl << "3. Manejo de Inscripciones" << endl;
         cout << "4. Manejo de Notas" << endl << "5. Consultas y Reportes" << endl << "0. Salir" << endl;
         cout << "Ingrese una opcion:"; cin >> opcion;
-        opcion = verificarNum(opcion, 0);
+        opcion = verificarNumero(opcion, "", "Reingrese una opcion:", -1, 0);
 
         switch(opcion) {
             case 0:

@@ -17,6 +17,6 @@ void Inscripcion::mostrarInfo() {
 
 void Inscripcion::obtenerPromedio() {
     if (!notaas.sinNotas()) {
-        cout << "Promedio: " << promedio() << endl;
+        cout << endl << "Promedio del curso " << curso -> getNombre() <<  ": " << promedio() << endl;
     }
 }
