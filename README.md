@@ -1,4 +1,4 @@
-Integrantes: Juan David Alvarado Galleguillos / 22.142.173-6
+Integrantes: Juan David Alvarado Galleguillos / Paralelo C1
 
 Este proyecto permite gestionar alumnos, cursos, notas e inscripciones de una forma sensilla. Ofreciendo la 
 posibilidad de crear cursos y alumnos, asignarlos entre si e ingresando sus notas. Facilitando la entrega de 
