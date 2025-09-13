@@ -316,7 +316,7 @@ void manejoNotas() {
                 cout << "Ingrese ID del alumno:"; cin >> id;
                 id = verificarNumero(id, "El ID debe ser mayor a 0", "Reingrese un ID:", 1, 0);
                 cout << "Ingrese CODIGO del curso:"; cin >> codigo;
-                codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese una cantidad de notas:", 1, 0);
+                codigo = verificarNumero(codigo, "El codigo debe ser mayor a 0", "Reingrese un codigo:", 1, 0);
 
                 Inscripcion* inscripcion = lista_inscripciones.buscarInscripcion(id, codigo);
 
@@ -327,7 +327,7 @@ void manejoNotas() {
 
                 int cant = 0;
                 cout << "Cantidad de notas a ingresar:"; cin >> cant;
-                cant = verificarNumero(cant, "La cantidad debe ser mayor o igual a 1", "Reingrese un codigo:", 1, 0);
+                cant = verificarNumero(cant, "La cantidad debe ser mayor o igual a 1", "Reingrese un cantidad de notas:", 1, 0);
 
                 for (int i = 0; i < cant; i++) {
                     double nota;

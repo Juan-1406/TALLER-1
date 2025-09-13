@@ -1,5 +1,6 @@
 #include "ListInscripciones.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 ListInscripciones::ListInscripciones() {
@@ -154,7 +155,7 @@ void ListInscripciones::cursosAlumno(int idAlumno) {
     }
 
     if (!encontrado) {
-        cout << endl << "No se encontraron cursos inscritos";
+        cout << endl << "No se encontraron cursos inscritos" << endl;
     }
 
 }
@@ -173,5 +174,6 @@ double ListInscripciones::promedioGeneral(int idAlumno) {
         actual = actual -> sgt;
     }
     if (cont == 0) {return 0.0;}
-    return suma / cont;
+    double resultado = suma / cont;
+    return round(resultado * 100.0) / 100.0;
 }

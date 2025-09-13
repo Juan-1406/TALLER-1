@@ -1,4 +1,5 @@
 #include "ListNotas.h"
+#include <cmath>
 
 ListNotas::ListNotas() {
     cabeza = nullptr;
@@ -36,7 +37,8 @@ double ListNotas::promedioNotas() {
         actual = actual -> sgt;
     }
     if (cont > 0) {
-        return suma / cont;
+        double resultado = suma / cont;
+        return round(resultado * 100.0) / 100.0;
     }
     return 0.0;
  }
